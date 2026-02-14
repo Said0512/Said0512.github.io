@@ -24,19 +24,23 @@ body {
 .container {
   max-width: 400px;
   padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 h1 {
   font-family: 'Playfair Display', serif;
   font-weight: 600;
-  font-size: 32px;
+  font-size: 36px;
   margin-bottom: 10px;
 }
 
 p {
-  font-size: 14px;
-  opacity: 0.7;
-  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.5;
+  opacity: 0.8;
+  margin-bottom: 25px;
 }
 
 button {
@@ -48,6 +52,7 @@ button {
   letter-spacing: 1px;
   cursor: pointer;
   transition: all 0.3s ease;
+  margin-top: 20px;
 }
 
 button:hover {
@@ -56,19 +61,27 @@ button:hover {
 }
 
 #mensaje {
-  margin-top: 20px;
-  font-size: 16px;
+  margin-top: 25px;
+  font-size: 17px;
   font-family: 'Playfair Display', serif;
   opacity: 0;
   transition: opacity 0.8s ease;
+  line-height: 1.5;
 }
 
 .foto {
   width: 100%;
-  max-width: 300px;
+  max-width: 320px;
   margin-top: 20px;
-  border-radius: 12px;
+  border-radius: 14px;
   opacity: 0.95;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.5s ease, opacity 0.8s ease;
+}
+
+.foto:hover {
+  transform: scale(1.03);
+  opacity: 1;
 }
 </style>
 </head>
@@ -77,15 +90,15 @@ button:hover {
 
 <div class="container">
   <h1>Para Ti, Mor ❤️</h1>
-  <p>Algo simple, pero sincero. Solo quiero que sonrías al leer esto.</p>
+  <p>Mor… cada momento contigo se siente eterno. Cada risa, cada mirada, cada detalle tuyo queda grabado en mi corazón. Solo quiero que sonrías mientras lees esto y sientas cuánto significas para mí.</p>
 
   <!-- Fotos -->
   <img src="sueter.jpg" alt="Suéter azul y ojito" class="foto">
-  <img src="ojitos.jpg" alt="Sus ojitos" class="foto">
-  <img src="tenis.jpg" alt="Nuestros tenis juntos" class="foto">
+  <img src="IMG-20260213-WA0015.jpg" alt="Sus ojitos" class="foto">
+  <img src="IMG-20260126-WA0026.jpg" alt="Nuestros juntos" class="foto">
 
-  <!-- Botón -->
-  <button onclick="mostrarMensaje()">ABRIR</button>
+  <!-- Botón de frases bonitas -->
+  <button onclick="mostrarMensaje()">Frases bonitas 💌</button>
 
   <div id="mensaje"></div>
 </div>
@@ -98,7 +111,11 @@ function mostrarMensaje() {
     "Cuando pienso en futuro… apareces tú.",
     "Contigo todo se siente más ligero.",
     "No necesito mucho, solo tu presencia.",
-    "Gracias por existir en mi vida."
+    "Gracias por existir en mi vida.",
+    "Tu risa es mi melodía favorita.",
+    "Mor, cada instante contigo es un regalo que atesoro.",
+    "Si pudiera, congelaría el tiempo cuando estamos juntos.",
+    "Tu mirada ilumina mis días más grises."
   ];
 
   const random = frases[Math.floor(Math.random() * frases.length)];
