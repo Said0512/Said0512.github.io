@@ -8,6 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Montserrat:wght@300&display=swap" rel="stylesheet">
 
 <style>
+/* ----------------- FONDO ROMÁNTICO ANIMADO ----------------- */
 body {
   margin: 0;
   padding: 0;
@@ -16,19 +17,19 @@ body {
   color: #3a3a3a;
   overflow-x: hidden;
   position: relative;
+  background: linear-gradient(120deg, #ffe4e6, #f8d7da, #ffffff, #f0e0ff);
+  animation: fondoRomantico 30s infinite alternate;
   transition: background 10s ease-in-out;
-  background: linear-gradient(120deg, #f5f3f2, #e8e4e1);
-  animation: fondoColor 20s infinite alternate;
+}
+@keyframes fondoRomantico {
+  0% { background: linear-gradient(120deg, #ffe4e6, #f8d7da, #ffffff, #f0e0ff);}
+  25% { background: linear-gradient(120deg, #fcd5ce, #f5c7b8, #ffffff, #eec9ff);}
+  50% { background: linear-gradient(120deg, #ffc6d3, #f7a8a8, #ffffff, #d4a5ff);}
+  75% { background: linear-gradient(120deg, #ffd6e0, #f8b3b3, #ffffff, #e0b3ff);}
+  100% { background: linear-gradient(120deg, #ffe4e6, #f8d7da, #ffffff, #f0e0ff);}
 }
 
-@keyframes fondoColor {
-  0% { background: linear-gradient(120deg, #f5f3f2, #e8e4e1);}
-  25% { background: linear-gradient(120deg, #fceabb, #f8b500);}
-  50% { background: linear-gradient(120deg, #a1c4fd, #c2e9fb);}
-  75% { background: linear-gradient(120deg, #ffdde1, #ee9ca7);}
-  100% { background: linear-gradient(120deg, #f5f3f2, #e8e4e1);}
-}
-
+/* ----------------- ESTILOS BÁSICOS ----------------- */
 .container {
   max-width: 600px;
   padding: 40px 20px;
@@ -38,7 +39,6 @@ body {
   align-items: center;
   text-align: center;
 }
-
 h1 {
   font-family: 'Playfair Display', serif;
   font-weight: 600;
@@ -47,7 +47,6 @@ h1 {
   opacity: 0;
   animation: tituloEntrada 2s forwards, respirarTitulo 4s ease-in-out infinite;
 }
-
 @keyframes tituloEntrada {
   0% { opacity:0; transform: translateY(-30px);}
   100% { opacity:1; transform: translateY(0);}
@@ -75,22 +74,33 @@ p {
   box-shadow: 0 4px 14px rgba(0,0,0,0.1);
   transition: transform 0.5s ease, opacity 1s ease, filter 1.5s ease;
   transform: translateY(20px);
+  position: relative;
+  overflow: hidden;
 }
 .foto:hover { transform: scale(1.03); }
 
-.foto.ojos { filter: brightness(1); }
-.foto.ojos.active { animation: brillo 2s infinite alternate; }
-@keyframes brillo {
-  0% { filter: brightness(1); }
-  50% { filter: brightness(1.2); }
-  100% { filter: brightness(1); }
+/* Brillo fugaz fotos */
+.foto::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: rgba(255,255,255,0.3);
+  transform: rotate(45deg) translateX(-100%) translateY(-100%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.5s ease;
 }
-
-.foto.respiracion { animation: respirar 4s ease-in-out infinite; }
-@keyframes respirar {
-  0% { transform: scale(1) translateY(20px);}
-  50% { transform: scale(1.02) translateY(18px);}
-  100% { transform: scale(1) translateY(20px);}
+.foto.active::after {
+  opacity: 1;
+  animation: brilloFugaz 1s ease forwards;
+}
+@keyframes brilloFugaz {
+  0% { transform: rotate(45deg) translateX(-100%) translateY(-100%); opacity:0; }
+  50% { transform: rotate(45deg) translateX(100%) translateY(100%); opacity:0.5; }
+  100% { transform: rotate(45deg) translateX(200%) translateY(200%); opacity:0; }
 }
 
 button {
@@ -117,6 +127,7 @@ button:hover {
   transform: translateY(0) !important;
 }
 
+/* Corazones flotando fondo */
 .particle {
   position: fixed;
   font-size: 14px;
@@ -140,78 +151,43 @@ button:hover {
 <div class="container">
   <h1 id="titulo">Para Ti, Mor ❤️</h1>
 
-  <!-- Bloque 1 -->
+  <!-- BLOQUE 1 -->
   <p class="fade">Desde que llegaste a mi vida, todo cambió. Cada sonrisa tuya ilumina mis días y cada momento a tu lado se siente eterno. Eres especial, <strong>maravillosa</strong>, y haces que mi mundo sea más bonito solo con existir. No hay nadie como tú, y quiero que siempre sepas lo mucho que te valoro.</p>
 
-  <!-- Bloque 2 - Foto ojos -->
+  <!-- BLOQUE 2 - Ojos -->
   <img src="IMG-20260126-WA0026.jpg" alt="Sus ojitos" class="foto fade ojos">
-  <p class="fade">Tus ojos son como un universo donde me pierdo todos los días. Cada mirada tuya me dice cosas que las palabras no podrían expresar. Son hermosos, mágicos y cada vez que los veo siento que el mundo se detiene por un instante. Cada parpadeo tuyo me roba el aliento.</p>
+  <p class="fade">Tus ojos son como un universo donde me pierdo todos los días. Cada mirada tuya me dice cosas que las palabras no podrían expresar. Son <strong>hermosos</strong>, mágicos y cada vez que los veo siento que el mundo se detiene.</p>
 
-  <!-- Bloque 3 - Foto de ella -->
+  <!-- BLOQUE 3 - Foto de ella -->
   <img src="IMG-20260213-WA0015.jpg" alt="Ella" class="foto fade respiracion">
-  <p class="fade">Cada momento contigo se queda grabado en mi corazón. Tu risa, tus gestos, tus palabras… todo de ti me hace sentir completo. Eres irrepetible y nadie más podría ocupar tu lugar. Gracias por enseñarme lo que significa amar de verdad y por hacerme tan feliz solo con ser tú misma.</p>
+  <p class="fade">Cada instante contigo se queda grabado en mi corazón. Tu risa, tus gestos, tus palabras… todo de ti me hace sentir completo. Eres <strong>irrepetible</strong> y nadie más podría ocupar tu lugar. Gracias por enseñarme lo que significa amar de verdad y por hacerme tan feliz solo con ser tú misma.</p>
 
-  <!-- Bloque 4 - Foto juntos -->
+  <!-- BLOQUE 4 - Foto juntos -->
   <img src="IMG-20251222-WA0040.jpg" alt="Juntos" class="foto fade">
-  <p class="fade">Estar a tu lado me enseña lo que realmente significa la felicidad. Cada instante contigo me recuerda lo afortunado que soy de tenerte en mi vida. Eres mi calma, mi alegría y mi inspiración, y cada día contigo es un regalo que nunca dejaré de agradecer.</p>
+  <p class="fade">Estar a tu lado me enseña lo que realmente significa la <strong>felicidad</strong>. Cada instante contigo me recuerda lo afortunado que soy de tenerte en mi vida. Eres mi calma, mi alegría y mi inspiración, y cada día contigo es un regalo que nunca dejaré de agradecer.</p>
 
-  <!-- Bloque 5 - Texto adicional sobre lo maravillosa -->
-  <p class="fade">Mor, quiero que sepas que eres <strong>lo más maravilloso que me ha pasado</strong>. Cada detalle tuyo, tu ternura, tu sonrisa y tu forma de ver la vida me hacen sentir que soy el hombre más afortunado del mundo. No hay palabras suficientes para describir lo especial que eres para mí.</p>
-
-  <!-- Botón Mor -->
+  <!-- BOTÓN Mor -->
   <button onclick="mostrarMensaje()" id="botonMor" class="fade">Mor</button>
-  <div id="mensaje"></div>
+  <div id="mensaje" style="margin-top:20px; font-size:16px; line-height:1.8;"></div>
 
   <!-- Frase final -->
   <div id="finalFrase">Siempre serás mi todo ❤️</div>
 </div>
 
 <script>
-// Fade-in y corazones alrededor de fotos
+// ----------------- FADE-IN EN SCROLL -----------------
 const faders = document.querySelectorAll('.fade');
 const appearOptions = { threshold: 0.2 };
 const appearOnScroll = new IntersectionObserver(function(entries, observer){
   entries.forEach(entry => {
     if (!entry.isIntersecting) return;
-    entry.target.classList.add('active');
-
-    // Corazones alrededor de fotos
-    if(entry.target.tagName === 'IMG') crearCorazonesFoto(entry.target);
-
+    entry.target.classList.add('active'); 
     observer.unobserve(entry.target);
   });
 }, appearOptions);
 faders.forEach(fader => appearOnScroll.observe(fader));
 
-// Corazones flotando alrededor de fotos
-function crearCorazonesFoto(foto) {
-  for(let i=0;i<15;i++){
-    const particle = document.createElement('div');
-    particle.classList.add('particle');
-    particle.style.position = 'absolute';
-    particle.style.left = (foto.offsetLeft + Math.random()*foto.offsetWidth) + 'px';
-    particle.style.top = (foto.offsetTop + Math.random()*foto.offsetHeight) + 'px';
-    particle.style.fontSize = (Math.random()*12+12)+'px';
-    particle.style.animationDuration = (Math.random()*4+3)+'s';
-    particle.innerText = "❤️";
-    document.body.appendChild(particle);
-
-    let angle = Math.random()*360;
-    let radius = 30 + Math.random()*20;
-    const move = setInterval(()=>{
-      angle += 2;
-      particle.style.left = (foto.offsetLeft + foto.offsetWidth/2 + radius*Math.cos(angle*Math.PI/180))+'px';
-      particle.style.top = (foto.offsetTop + foto.offsetHeight/2 + radius*Math.sin(angle*Math.PI/180))+'px';
-    },50);
-
-    setTimeout(()=>{
-      clearInterval(move);
-      particle.remove();
-    }, 5000);
-  }
-}
-
-// Botón Mor con 50 frases
+// ----------------- BOTÓN Mor CON 50 FRASES -----------------
 const frases = [
 "Eres única y nadie podría reemplazarte.",
 "Tu sonrisa ilumina mis días más oscuros.",
@@ -219,26 +195,69 @@ const frases = [
 "Eres mi calma y mi alegría al mismo tiempo.",
 "Tu corazón es hermoso y puro.",
 "Estar contigo hace que todo valga la pena.",
-// ... agrega las 45 frases restantes aquí
+"Me inspiras a ser mejor cada día.",
+"Tus abrazos me hacen sentir en casa.",
+"Eres inolvidable y especial para mí.",
+"Cada instante contigo es un regalo que atesoro.",
+"Tu risa es la melodía que quiero escuchar siempre.",
+"Eres la razón de mi felicidad.",
+"Todo de ti me hace sentir completo.",
+"Tu ternura me derrite.",
+"Eres más hermosa de lo que las palabras pueden decir.",
+"Cada día contigo es un sueño hecho realidad.",
+"Tu mirada tiene magia y me hipnotiza.",
+"Eres mi refugio, mi lugar seguro.",
+"No hay nadie como tú en este mundo.",
+"Tu alegría me contagia y me inspira.",
+"Eres preciosa, adentro y afuera.",
+"Cada gesto tuyo me hace quererte más.",
+"Contigo todo se siente más fácil y ligero.",
+"Tu voz es mi canción favorita.",
+"Eres mi amor, mi amiga y mi todo.",
+"Tu cariño me hace sentir invencible.",
+"Eres especial en cada detalle.",
+"Cada momento contigo es mágico.",
+"Tu existencia hace mi mundo mejor.",
+"Eres mi pensamiento más bonito.",
+"Tu corazón es mi lugar favorito.",
+"Cada vez que sonríes, el mundo se detiene.",
+"Eres un milagro que quiero cuidar siempre.",
+"Tu dulzura no tiene comparación.",
+"Eres increíblemente maravillosa.",
+"Todo en ti me hace feliz.",
+"Tu amor me transforma y me llena.",
+"Eres la razón por la que creo en lo bonito de la vida.",
+"Contigo cada día es especial.",
+"Eres el sol en mis días nublados.",
+"Cada palabra tuya me toca el corazón.",
+"Eres más valiosa de lo que puedes imaginar.",
+"Tu ternura me hace perder la noción del tiempo.",
+"Eres mi pensamiento constante, mi inspiración.",
+"Contigo todo es mejor, más bonito, más real.",
+"Eres un regalo que nunca dejaré de agradecer.",
+"Cada detalle tuyo me enamora una y otra vez.",
+"Eres la definición de belleza y bondad.",
+"Todo en ti es perfecto a mi manera de verlo.",
 "Siempre quiero que sepas que eres mi mundo, mi Mor. ❤️"
 ];
 
+let typingInterval;
 function mostrarMensaje() {
+  clearInterval(typingInterval);
   const random = frases[Math.floor(Math.random()*frases.length)];
   const mensaje = document.getElementById("mensaje");
   mensaje.innerText = "";
   let i = 0;
-  const typing = setInterval(() => {
+  typingInterval = setInterval(() => {
     mensaje.innerText += random[i];
     i++;
-    if(i >= random.length) clearInterval(typing);
+    if(i >= random.length) clearInterval(typingInterval);
   }, 50);
-  crearParticulas();
 }
 
-// Corazones flotando de fondo
+// ----------------- CORAZONES FLOTANDO -----------------
 function crearParticulas() {
-  for(let i=0;i<15;i++){
+  for(let i=0;i<10;i++){
     const particle = document.createElement('div');
     particle.classList.add('particle');
     particle.style.left = Math.random()*window.innerWidth + 'px';
@@ -249,17 +268,15 @@ function crearParticulas() {
     setTimeout(()=>{ particle.remove(); }, 7000);
   }
 }
+setInterval(() => { crearParticulas(); }, 3000);
 
-// Frase final
+// ----------------- FRASE FINAL -----------------
 window.addEventListener('scroll', ()=>{
   const final = document.getElementById('finalFrase');
   if(window.scrollY + window.innerHeight > document.body.scrollHeight - 200){
     final.style.opacity = 1;
   }
 });
-
-// Corazones de fondo continuo
-setInterval(() => { crearParticulas(); }, 3000);
 </script>
 </body>
 </html>
