@@ -68,7 +68,7 @@ p {
   transform: translateY(20px);
 }
 
-/* Fade-in suave para fotos */
+/* Fade-in fotos */
 .foto {
   width: 100%;
   max-width: 400px;
@@ -79,7 +79,6 @@ p {
   transition: transform 0.5s ease, opacity 1s ease, filter 1.5s ease;
   transform: translateY(20px);
   position: relative;
-  overflow: hidden;
 }
 .foto:hover { transform: scale(1.03); }
 
@@ -131,20 +130,11 @@ button:hover {
   transform: translateY(0) !important;
 }
 
-/* Corazones flotando fondo */
-.particle {
-  position: fixed;
-  font-size: 14px;
-  color: #ff6b81;
-  user-select: none;
-  pointer-events: none;
-  z-index: 999;
-  opacity: 0.8;
-  animation: floatUp 7s linear infinite;
-}
-@keyframes floatUp {
-  0% { transform: translateY(0) rotate(0deg);}
-  100% { transform: translateY(-900px) rotate(360deg);}
+#mensaje {
+  margin-top: 20px; 
+  font-size:16px; 
+  line-height:1.8; 
+  white-space: pre-line; /* Importante para saltos de línea */
 }
 
 #finalFrase { font-size: 20px; font-family: 'Playfair Display', serif; margin-top: 50px; opacity: 0; transition: opacity 2s ease; }
@@ -172,14 +162,14 @@ button:hover {
 
   <!-- BOTÓN Mor -->
   <button onclick="mostrarMensaje()" id="botonMor" class="fade">Mor</button>
-  <div id="mensaje" style="margin-top:20px; font-size:16px; line-height:1.8; white-space: pre-line;"></div>
+  <div id="mensaje"></div>
 
   <!-- Frase final -->
   <div id="finalFrase">Siempre serás mi todo ❤️</div>
 </div>
 
 <script>
-// ----------------- FADE-IN EN SCROLL -----------------
+// ----------------- FADE-IN -----------------
 const faders = document.querySelectorAll('.fade');
 const appearOptions = { threshold: 0.2 };
 const appearOnScroll = new IntersectionObserver(function(entries, observer){
@@ -191,7 +181,7 @@ const appearOnScroll = new IntersectionObserver(function(entries, observer){
 }, appearOptions);
 faders.forEach(fader => appearOnScroll.observe(fader));
 
-// ----------------- BOTÓN Mor CON 50 FRASES -----------------
+// ----------------- BOTÓN Mor CON FRASES -----------------
 const frases = [
 "Eres única y nadie podría reemplazarte.",
 "Tu sonrisa ilumina mis días más oscuros.",
@@ -250,12 +240,12 @@ function mostrarMensaje() {
   clearInterval(typingInterval);
   const random = frases[Math.floor(Math.random()*frases.length)];
   const mensaje = document.getElementById("mensaje");
-  mensaje.innerText = "";
+  mensaje.innerHTML = ""; // importante para respetar espacios
   let i = 0;
   typingInterval = setInterval(() => {
-    mensaje.innerText += random[i];
+    mensaje.innerHTML = random.substring(0, i).replace(/\n/g, "<br>");
     i++;
-    if(i >= random.length) clearInterval(typingInterval);
+    if(i > random.length) clearInterval(typingInterval);
   }, 50);
 }
 
