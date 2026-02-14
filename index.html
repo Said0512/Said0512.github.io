@@ -8,13 +8,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Montserrat:wght@300&display=swap" rel="stylesheet">
 
 <style>
+/* ----------------- Estilos básicos ----------------- */
 body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  background: linear-gradient(to bottom, #f5f3f2, #e8e4e1);
+  background: linear-gradient(120deg, #f5f3f2, #e8e4e1);
   font-family: 'Montserrat', sans-serif;
   color: #3a3a3a;
+  overflow-x: hidden;
+  position: relative;
 }
 
 .container {
@@ -31,7 +34,8 @@ h1 {
   font-family: 'Playfair Display', serif;
   font-weight: 600;
   font-size: 38px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  opacity: 0;
 }
 
 p {
@@ -54,6 +58,8 @@ button {
   transition: all 0.3s ease;
   margin-top: 30px;
   border-radius: 6px;
+  opacity: 0;
+  transform: translateY(20px);
 }
 
 button:hover {
@@ -61,15 +67,13 @@ button:hover {
   color: white;
 }
 
-#mensaje {
-  margin-top: 30px;
-  font-size: 17px;
-  font-family: 'Playfair Display', serif;
-  opacity: 0;
-  transition: opacity 0.8s ease;
-  line-height: 1.6;
+/* Fade-in activo */
+.active {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
 }
 
+/* Fotos */
 .foto {
   width: 100%;
   max-width: 400px;
@@ -83,10 +87,9 @@ button:hover {
 
 .foto:hover {
   transform: scale(1.03);
-  opacity: 1;
 }
 
-/* Brillo sutil en la foto de ojos */
+/* Brillo en foto de ojos */
 .foto.ojos {
   filter: brightness(1);
 }
@@ -101,7 +104,63 @@ button:hover {
   100% { filter: brightness(1); }
 }
 
-/* Texto superpuesto sobre imagen */
+/* Respiración foto de ella */
+.foto.respiracion {
+  animation: respirar 4s ease-in-out infinite;
+}
+
+@keyframes respirar {
+  0% { transform: scale(1) translateY(20px);}
+  50% { transform: scale(1.02) translateY(18px);}
+  100% { transform: scale(1) translateY(20px);}
+}
+
+/* Flip card */
+.flip-card {
+  background-color: transparent;
+  width: 100%;
+  max-width: 400px;
+  perspective: 1000px;
+  margin-top: 25px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  backface-visibility: hidden;
+  border-radius: 14px;
+}
+
+.flip-card-front img {
+  width: 100%;
+  display: block;
+}
+
+.flip-card-back {
+  background: #f5f3f2;
+  color: #3a3a3a;
+  transform: rotateY(180deg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* Texto sobre imagen */
 .text-overlay {
   position: relative;
   display: inline-block;
@@ -119,9 +178,30 @@ button:hover {
   opacity: 0.95;
 }
 
-.active {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
+/* Partículas / corazones */
+.particle {
+  position: fixed;
+  font-size: 14px;
+  color: #ff6b81;
+  user-select: none;
+  pointer-events: none;
+  z-index: 999;
+  opacity: 0.8;
+  animation: floatUp 5s linear infinite;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0) rotate(0deg);}
+  100% { transform: translateY(-800px) rotate(360deg);}
+}
+
+/* Frase final */
+#finalFrase {
+  font-size: 20px;
+  font-family: 'Playfair Display', serif;
+  margin-top: 50px;
+  opacity: 0;
+  transition: opacity 2s ease;
 }
 </style>
 </head>
@@ -129,70 +209,156 @@ button:hover {
 <body>
 
 <div class="container">
-  <h1>Para Ti, Mor ❤️</h1>
+  <!-- Título animado -->
+  <h1 id="titulo">Para Ti, Mor ❤️</h1>
 
-  <!-- Bloque 1: Texto inicial -->
-  <p class="fade">Mor… desde que llegaste a mi vida, todo tiene otro color. Cada risa tuya ilumina mis días y hace que cada momento valga la pena. No hay nadie como tú, y quiero que sepas que cada instante a tu lado es un regalo que atesoro.</p>
+  <!-- Bloque 1 -->
+  <p class="fade">Desde que llegaste a mi vida, todo cambió. Cada sonrisa tuya ilumina mis días y cada momento a tu lado se siente eterno. Eres única, especial y haces que mi mundo sea más bonito solo con existir. No hay nadie como tú, y quiero que siempre sepas lo mucho que te valoro.</p>
 
-  <!-- Bloque 2: Imagen de sus ojos + texto -->
+  <!-- Bloque 2 - Foto ojos -->
   <img src="IMG-20260126-WA0026.jpg" alt="Sus ojitos" class="foto fade ojos">
-  <p class="fade">Mor, tus ojos son como un universo que quiero explorar todos los días. Cada mirada tuya me dice más de lo que las palabras podrían. Son hermosos, mágicos, y me pierdo en ellos cada vez que los veo.</p>
 
-  <!-- Bloque 3: Texto largo + foto de ella -->
-  <img src="IMG-20260213-WA0015.jpg" alt="Ella" class="foto fade">
-  <p class="fade">Mor… cada momento contigo se siente eterno. Cada gesto, cada sonrisa, cada palabra tuya queda grabado en mi corazón. Eres única, irrepetible y haces que mi vida sea más bonita solo por existir. Contigo todo se siente más ligero, más fácil y más feliz. No hay nada que desee más que verte sonreír y saber que siempre seré alguien en quien puedas confiar. Gracias por ser como eres, por iluminar mis días y por enseñarme lo que significa amar de verdad.</p>
+  <p class="fade">Tus ojos son como un universo donde me pierdo todos los días. Cada mirada tuya me dice cosas que las palabras no podrían expresar. Son hermosos, mágicos y cada vez que los veo siento que el mundo se detiene por un instante.</p>
 
-  <!-- Bloque 4: Imagen de ustedes juntos + texto superpuesto -->
-  <div class="text-overlay fade">
-    <img src="IMG-20251222-WA0040.jpg" alt="Juntos" class="foto">
-    <p>Mor… a tu lado descubro lo que realmente significa la felicidad. Cada momento juntos me recuerda lo afortunado que soy de tenerte, y cuánto cambias mi vida para bien solo con tu presencia. Eres mi alegría, mi calma y mi inspiración.</p>
+  <!-- Bloque 3 - Foto de ella con respiración -->
+  <img src="IMG-20260213-WA0015.jpg" alt="Ella" class="foto fade respiracion">
+  <p class="fade">Cada momento contigo se queda grabado en mi corazón. Tu risa, tus gestos, tus palabras… todo de ti me hace sentir completo. Eres irrepetible y nadie más podría ocupar tu lugar. Gracias por enseñarme lo que significa amar de verdad y por hacerme tan feliz solo con ser tú misma.</p>
+
+  <!-- Bloque 4 - Foto juntos + texto debajo -->
+  <img src="IMG-20251222-WA0040.jpg" alt="Juntos" class="foto fade">
+  <p class="fade">Estar a tu lado me enseña lo que realmente significa la felicidad. Cada instante contigo me recuerda lo afortunado que soy de tenerte en mi vida. Eres mi calma, mi alegría y mi inspiración, y cada día contigo es un regalo que nunca dejaré de agradecer.</p>
+
+  <!-- Bloque 5 - Flip card -->
+  <div class="flip-card fade">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <img src="IMG-20260213-WA0015.jpg" alt="Ella">
+      </div>
+      <div class="flip-card-back">
+        No hay palabras que describan lo importante que eres para mí. Eres única, hermosa y la razón por la que sonrío cada día. No puedo imaginar la vida sin ti. 💧
+      </div>
+    </div>
   </div>
 
-  <!-- Bloque final: Botón Mor -->
-  <button onclick="mostrarMensaje()">Mor</button>
+  <!-- Botón Mor -->
+  <button onclick="mostrarMensaje()" id="botonMor" class="fade">Mor</button>
   <div id="mensaje"></div>
+
+  <!-- Frase final -->
+  <div id="finalFrase">Siempre serás mi todo ❤️</div>
 </div>
 
 <script>
-// Razones románticas al azar
-function mostrarMensaje() {
-  const frases = [
-    "Porque eres única y nadie puede igualarte.",
-    "Porque tu risa ilumina mis días más grises.",
-    "Porque cada mirada tuya me enamora más.",
-    "Porque eres mi calma y mi alegría a la vez.",
-    "Porque tu corazón es hermoso y puro.",
-    "Porque estar contigo hace que todo valga la pena.",
-    "Porque me inspiras a ser mejor cada día.",
-    "Porque tus abrazos me hacen sentir en casa.",
-    "Porque eres inolvidable y especial para mí.",
-    "Porque cada instante contigo es un regalo que atesoro."
-  ];
-  const random = frases[Math.floor(Math.random() * frases.length)];
-  const mensaje = document.getElementById("mensaje");
-  mensaje.innerText = random;
-  mensaje.style.opacity = 1;
-}
+// Animación título letra por letra
+const titulo = document.getElementById('titulo');
+let letras = titulo.innerText.split('');
+titulo.innerText = '';
+letras.forEach((letra, i) => {
+  setTimeout(() => { titulo.innerText += letra; titulo.style.opacity = 1; }, i*100);
+});
 
-// Fade-in al hacer scroll
+// Fade-in al scroll
 const faders = document.querySelectorAll('.fade');
 
-const appearOptions = {
-  threshold: 0.2,
-};
-
-const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll){
+const appearOptions = { threshold: 0.2 };
+const appearOnScroll = new IntersectionObserver(function(entries, observer){
   entries.forEach(entry => {
     if (!entry.isIntersecting) return;
     entry.target.classList.add('active');
-    appearOnScroll.unobserve(entry.target);
+    observer.unobserve(entry.target);
   });
 }, appearOptions);
 
-faders.forEach(fader => {
-  appearOnScroll.observe(fader);
+faders.forEach(fader => appearOnScroll.observe(fader));
+
+// Botón Mor con 50 frases
+const frases = [
+"Eres única y nadie podría reemplazarte.",
+"Tu sonrisa ilumina mis días más oscuros.",
+"Cada mirada tuya me enamora más.",
+"Eres mi calma y mi alegría al mismo tiempo.",
+"Tu corazón es hermoso y puro.",
+"Estar contigo hace que todo valga la pena.",
+"Me inspiras a ser mejor cada día.",
+"Tus abrazos me hacen sentir en casa.",
+"Eres inolvidable y especial para mí.",
+"Cada instante contigo es un regalo que atesoro.",
+"Tu risa es la melodía que quiero escuchar siempre.",
+"Eres la razón de mi felicidad.",
+"Todo de ti me hace sentir completo.",
+"Tu ternura me derrite.",
+"Eres más hermosa de lo que las palabras pueden decir.",
+"Cada día contigo es un sueño hecho realidad.",
+"Tu mirada tiene magia y me hipnotiza.",
+"Eres mi refugio, mi lugar seguro.",
+"No hay nadie como tú en este mundo.",
+"Tu alegría me contagia y me inspira.",
+"Eres preciosa, adentro y afuera.",
+"Cada gesto tuyo me hace quererte más.",
+"Contigo todo se siente más fácil y ligero.",
+"Tu voz es mi canción favorita.",
+"Eres mi amor, mi amiga y mi todo.",
+"Tu cariño me hace sentir invencible.",
+"Eres especial en cada detalle.",
+"Cada momento contigo es mágico.",
+"Tu existencia hace mi mundo mejor.",
+"Eres mi pensamiento más bonito.",
+"Tu corazón es mi lugar favorito.",
+"Cada vez que sonríes, el mundo se detiene.",
+"Eres un milagro que quiero cuidar siempre.",
+"Tu dulzura no tiene comparación.",
+"Eres increíblemente maravillosa.",
+"Todo en ti me hace feliz.",
+"Tu amor me transforma y me llena.",
+"Eres la razón por la que creo en lo bonito de la vida.",
+"Contigo cada día es especial.",
+"Eres el sol en mis días nublados.",
+"Cada palabra tuya me toca el corazón.",
+"Eres más valiosa de lo que puedes imaginar.",
+"Tu ternura me hace perder la noción del tiempo.",
+"Eres mi pensamiento constante, mi inspiración.",
+"Contigo todo es mejor, más bonito, más real.",
+"Eres un regalo que nunca dejaré de agradecer.",
+"Cada detalle tuyo me enamora una y otra vez.",
+"Eres la definición de belleza y bondad.",
+"Todo en ti es perfecto a mi manera de verlo.",
+"Siempre quiero que sepas que eres mi mundo, mi Mor. ❤️"
+];
+
+function mostrarMensaje() {
+  const random = frases[Math.floor(Math.random()*frases.length)];
+  const mensaje = document.getElementById("mensaje");
+  mensaje.innerText = "";
+  let i = 0;
+  const typing = setInterval(() => {
+    mensaje.innerText += random[i];
+    i++;
+    if(i >= random.length) clearInterval(typing);
+  }, 50);
+  crearParticulas();
+}
+
+// Mini partículas de corazones
+function crearParticulas() {
+  for(let i=0; i<15; i++){
+    const particle = document.createElement('div');
+    particle.classList.add('particle');
+    particle.style.left = Math.random()*window.innerWidth + 'px';
+    particle.style.fontSize = (Math.random()*10+10)+'px';
+    particle.style.animationDuration = (Math.random()*3+3)+'s';
+    particle.innerText = "❤️";
+    document.body.appendChild(particle);
+    setTimeout(()=>{ particle.remove(); }, 5000);
+  }
+}
+
+// Mostrar frase final al final de la página
+window.addEventListener('scroll', ()=>{
+  const final = document.getElementById('finalFrase');
+  if(window.scrollY + window.innerHeight > document.body.scrollHeight - 200){
+    final.style.opacity = 1;
+  }
 });
 </script>
-
 </body>
 </html>
