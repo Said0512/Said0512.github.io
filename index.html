@@ -3,14 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para Ti</title>
+<title>Para Ti, Mor</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Montserrat:wght@300&display=swap" rel="stylesheet">
 
 <style>
 body {
   margin: 0;
-  height: 100vh;
+  padding: 0;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -35,7 +36,7 @@ h1 {
 p {
   font-size: 14px;
   opacity: 0.7;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 button {
@@ -44,7 +45,7 @@ button {
   background: transparent;
   color: #3a3a3a;
   font-size: 14px;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -55,11 +56,19 @@ button:hover {
 }
 
 #mensaje {
-  margin-top: 30px;
+  margin-top: 20px;
   font-size: 16px;
   font-family: 'Playfair Display', serif;
   opacity: 0;
   transition: opacity 0.8s ease;
+}
+
+.foto {
+  width: 100%;
+  max-width: 300px;
+  margin-top: 20px;
+  border-radius: 12px;
+  opacity: 0.95;
 }
 </style>
 </head>
@@ -67,9 +76,15 @@ button:hover {
 <body>
 
 <div class="container">
-  <h1>Para Ti</h1>
-  <p>Algo simple, pero sincero.</p>
+  <h1>Para Ti, Mor ❤️</h1>
+  <p>Algo simple, pero sincero. Solo quiero que sonrías al leer esto.</p>
 
+  <!-- Fotos -->
+  <img src="sueter.jpg" alt="Suéter azul y ojito" class="foto">
+  <img src="ojitos.jpg" alt="Sus ojitos" class="foto">
+  <img src="tenis.jpg" alt="Nuestros tenis juntos" class="foto">
+
+  <!-- Botón -->
   <button onclick="mostrarMensaje()">ABRIR</button>
 
   <div id="mensaje"></div>
@@ -78,10 +93,12 @@ button:hover {
 <script>
 function mostrarMensaje() {
   const frases = [
-    "No es ruido, es calma cuando pienso en ti.",
+    "Mor… desde que llegaste, sonrío sin darme cuenta.",
     "Eres mi pensamiento favorito del día.",
+    "Cuando pienso en futuro… apareces tú.",
     "Contigo todo se siente más ligero.",
-    "No necesito mucho, solo tu presencia."
+    "No necesito mucho, solo tu presencia.",
+    "Gracias por existir en mi vida."
   ];
 
   const random = frases[Math.floor(Math.random() * frases.length)];
